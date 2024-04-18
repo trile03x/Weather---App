@@ -1,0 +1,64 @@
+.weather {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.weather__content {
+  width: 500px;
+  height: 90vh;
+  background-image: url("/image/bg.jpg");
+  background-size: cover;
+}
+
+.place {
+  color: #fff;
+  margin-top: 40px;
+  font-weight: 800;
+}
+
+.country {
+  /* margin-top: 40px; */
+  font-weight: 600;
+  color: #fff;
+}
+
+.temperature {
+  font-size: 120px;
+  font-weight: 800;
+  color: rgb(234, 243, 106);
+  /* margin: 80px 0px; */
+}
+
+.icon {
+  font-size: 30px;
+  color: rgb(7, 213, 240);
+}
+
+.result {
+  font-size: 30px;
+  font-weight: 500;
+}
+
+.col-4 {
+  color: #fff;
+}
+
+.input-search,
+.btn-search {
+  margin-top: 100px;
+  font-size: 30px;
+  font-weight: 500;
+}
+
+#search {
+  color: aqua;
+}
+
+.not-search {
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
