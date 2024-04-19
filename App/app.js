@@ -1,17 +1,20 @@
 const asyncRequest = require('async-request');
 const getWeather = async (location) => {
-    const key = '23ac9025b13c432e054fde606c95ee23';
-    const url = `http://api.weatherstack.com/current?access_key=${key}&query=${location}`;
+    const key = 'cdba65f6597c7a965877d2a7794ea707';
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${key}&lang=vi`;
     try {
         const res = await asyncRequest(url);
         const data = JSON.parse(res.body);
         const weather = {
-            region: data.location.region,
-            country: data.location.country,
-            temperature: data.current.temperature,
-            wind_speed: data.current.wind_speed,
-            precip: data.current.precip,
-            cloudcover: data.current.cloudcover,
+            wind: data.wind.speed,
+            clouds:data.clouds.all,
+            country:data.sys.country,
+            name:data.name,
+            temp:data.main.temp,
+            temp_min:data.main.temp_min,
+            temp_max:data.main.temp_max,
+            humidity: data.main.humidity,
+            desc: data.weather[0].description,
         };
         // console.log(data);
         // console.log(weather);
@@ -26,6 +29,7 @@ const getWeather = async (location) => {
     }
 
 }
+// getWeather('tokyo');
 const express = require('express');
 const app = express();
 // cau hinh toi file public
@@ -37,15 +41,20 @@ app.get("/", async (req, res) => { // thong thuong se co 2 tham so request va re
     const params = req.query;
     const location = params.address;
     const weatherData = await getWeather(location);
+    console.log(weatherData);
+    console.log("oke");
     if (location) {
         res.render("weather", {
             status: true,
-            region: weatherData.region,
-            country: weatherData.country,
-            temperature: weatherData.temperature,
-            wind_speed: weatherData.wind_speed,
-            precip: weatherData.precip,
-            cloudcover: weatherData.cloudcover,
+            wind: weatherData.wind,
+            clouds:weatherData.clouds,
+            country:weatherData.country,
+            name:weatherData.name,
+            temp:(weatherData.temp -273.15).toFixed(1),
+            temp_min:(weatherData.temp_min-273.15).toFixed(1),
+            temp_max:(weatherData.temp_max-273.15).toFixed(1),
+            humidity: weatherData.humidity,
+            desc: weatherData.desc,
         });
     }
     else{
